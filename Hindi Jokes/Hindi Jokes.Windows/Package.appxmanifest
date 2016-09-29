@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="AyanshTechnoSoft.BestHindiJokes" Publisher="CN=B7D74EA3-BB0B-4D17-A226-46FA249C1A3C" Version="1.0.0.4" />
+  <Properties>
+    <DisplayName>Best Hindi Jokes</DisplayName>
+    <PublisherDisplayName>Ayansh TechnoSoft</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Hindi_Jokes.Windows.App">
+      <m2:VisualElements DisplayName="Hindi Jokes" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="Hindi Jokes" ForegroundText="light" BackgroundColor="#464646" ToastCapable="true">
+        <m2:DefaultTile ShortName="Hindi Jokes" DefaultSize="square150x150Logo" Wide310x150Logo="Assets\WideLogo.png" Square310x310Logo="Assets\BigLogo.png" Square70x70Logo="Assets\MediumLogo.png">
+          <m2:ShowNameOnTiles>
+            <m2:ShowOn Tile="wide310x150Logo" />
+            <m2:ShowOn Tile="square310x310Logo" />
+          </m2:ShowNameOnTiles>
+        </m2:DefaultTile>
+        <m2:SplashScreen Image="Assets\SplashScreen.png" />
+      </m2:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
