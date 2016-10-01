@@ -1,6 +1,5 @@
-﻿using Hindi_Jokes.Common;
-using Hindi_Jokes.HanuDows;
-using Newtonsoft.Json.Linq;
+﻿using HanuDowsFramework;
+using Hindi_Jokes.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -103,14 +102,35 @@ namespace Hindi_Jokes
         {
             this.navigationHelper.OnNavigatedTo(e);
 
-            JObject data = (JObject)e.Parameter;
-            var fileName = data.GetValue("file");
-            string title = data.GetValue("title").ToString();
+            string title = "";
 
-            pageTitle.Text = title;
+            if (e.Parameter == null)
+            {
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                title = localSettings.Values["ToastMessageTitle"].ToString();
+                string content = localSettings.Values["ToastMessageContent"].ToString();
 
-            string htmlFile = "ms-appx-web:///Assets/" + fileName;
-            webView.Navigate(new Uri(htmlFile));
+                string htmlText = "<html><head></head><body>" + 
+                        "<h2>" + title + "</h2>" + 
+                        "<p>" + content + "</p>" + 
+                        "</body></html>";
+
+                webView.NavigateToString(htmlText);
+
+            }
+            else
+            {
+                string fileName;
+                Dictionary<string, string> data = (Dictionary<string, string>)e.Parameter;
+                data.TryGetValue("file", out fileName);
+                data.TryGetValue("title", out title);
+
+                pageTitle.Text = title;
+
+                string htmlFile = "ms-appx-web:///Assets/" + fileName;
+                webView.Navigate(new Uri(htmlFile));
+
+            }
 
             // If this is EULA, then show command bar as well.
             if (title.Equals("EULA"))

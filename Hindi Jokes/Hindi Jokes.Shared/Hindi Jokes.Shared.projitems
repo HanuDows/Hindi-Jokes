@@ -15,14 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)HanuDows\NotificationBackgroundTask.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DB\DBHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DB\DBQuery.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HanuDows\HanuDowsApplication.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HanuDows\Post.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HanuDows\PostArtifact.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HanuDows\PostComment.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HanuDows\PostManager.cs" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\about.html" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultData.xml" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
@@ -32,8 +24,5 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\eula.html" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\help.html" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)DataModel\" />
   </ItemGroup>
 </Project>

@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\BadgeLogo.scale-140.png" />
     <Content Include="Assets\BadgeLogo.scale-240.png" />
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\Logo.scale-240.png" />
@@ -145,21 +146,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\HtmlAgilityPack.1.4.9.5\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch\HtmlAgilityPack.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCL, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SQLitePCL.3.8.7.2\lib\wpa81\SQLitePCL.dll</HintPath>
-      <Private>True</Private>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="HanuDowsFramework">
+      <HintPath>..\..\..\HanuDowsFramework\HanuDowsFramework\bin\Release\HanuDowsFramework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\HindiJokes_BackgroundTasks\HindiJokes_BackgroundTasks.csproj">
+      <Project>{1eb1f095-4efb-48fa-8839-837a8f4279bd}</Project>
+      <Name>HindiJokes_BackgroundTasks</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

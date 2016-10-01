@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hindi Jokes.Windows", "Hind
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hindi Jokes.WindowsPhone", "Hindi Jokes\Hindi Jokes.WindowsPhone\Hindi Jokes.WindowsPhone.csproj", "{6AE70C2E-E23B-40FE-9992-C73E84664DF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HindiJokes_BackgroundTasks", "HindiJokes_BackgroundTasks\HindiJokes_BackgroundTasks.csproj", "{1EB1F095-4EFB-48FA-8839-837A8F4279BD}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Hindi Jokes\Hindi Jokes.Shared\Hindi Jokes.Shared.projitems*{2902896f-5013-4590-906b-f383ef751b16}*SharedItemsImports = 13
@@ -76,6 +78,22 @@ Global
 		{6AE70C2E-E23B-40FE-9992-C73E84664DF3}.Release|x86.ActiveCfg = Release|x86
 		{6AE70C2E-E23B-40FE-9992-C73E84664DF3}.Release|x86.Build.0 = Release|x86
 		{6AE70C2E-E23B-40FE-9992-C73E84664DF3}.Release|x86.Deploy.0 = Release|x86
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Debug|ARM.Build.0 = Debug|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Release|ARM.ActiveCfg = Release|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Release|ARM.Build.0 = Release|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Release|x64.Build.0 = Release|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{1EB1F095-4EFB-48FA-8839-837A8F4279BD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

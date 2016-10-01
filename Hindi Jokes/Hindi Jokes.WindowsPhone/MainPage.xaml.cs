@@ -1,7 +1,7 @@
-﻿using Hindi_Jokes.Common;
-using Hindi_Jokes.HanuDows;
-using Newtonsoft.Json.Linq;
+﻿using HanuDowsFramework;
+using Hindi_Jokes.Common;
 using System;
+using System.Collections.Generic;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,6 +19,7 @@ namespace Hindi_Jokes
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
         private int index, maxCount;
+        private HanuDowsApplication hanuDowsApp;
 
         public MainPage()
         {
@@ -28,6 +29,7 @@ namespace Hindi_Jokes
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
             index = 0;
+            hanuDowsApp = HanuDowsApplication.getInstance();
             maxCount = PostManager.getInstance().PostList.Count;
 
         }
@@ -62,6 +64,17 @@ namespace Hindi_Jokes
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            if (e.PageState != null && e.PageState.ContainsKey("PostIndex"))
+            {
+                index = (int)e.PageState["PostIndex"];
+            }
+
+            if (PostManager.getInstance().PostList.Count <= 0)
+            {
+                hanuDowsApp.GetAllPosts();
+                maxCount = PostManager.getInstance().PostList.Count;
+            }
+
         }
 
         /// <summary>
@@ -74,6 +87,7 @@ namespace Hindi_Jokes
         /// serializable state.</param>
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
+            e.PageState["PostIndex"] = index;
         }
 
         #region NavigationHelper registration
@@ -94,6 +108,13 @@ namespace Hindi_Jokes
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
+
+            if (PostManager.getInstance().PostList.Count <= 0)
+            {
+                hanuDowsApp.GetAllPosts();
+                maxCount = PostManager.getInstance().PostList.Count;
+                index = 0;
+            }
 
             showPostOnUI();
 
@@ -163,7 +184,7 @@ namespace Hindi_Jokes
 
         private void ShowHelp(object sender, RoutedEventArgs e)
         {
-            JObject data = new JObject();
+            Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("title", "Help:");
             data.Add("file", "help.html");
             Frame.Navigate(typeof(HTMLDisplayPage), data);
@@ -171,7 +192,7 @@ namespace Hindi_Jokes
 
         private void ShowAboutUs(object sender, RoutedEventArgs e)
         {
-            JObject data = new JObject();
+            Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("title", "About Us:");
             data.Add("file", "about.html");
             Frame.Navigate(typeof(HTMLDisplayPage), data);

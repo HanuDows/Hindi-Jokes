@@ -6,10 +6,11 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Hindi_Jokes.Common;
-using Hindi_Jokes.DB;
-using Hindi_Jokes.HanuDows;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+using HanuDowsFramework;
+using System.Collections.Generic;
+using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel.Background;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 
@@ -48,6 +49,9 @@ namespace Hindi_Jokes
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+
+            // Get Launch Parameters
+            string launchString = e.Arguments;
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -106,7 +110,7 @@ namespace Hindi_Jokes
                 var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                 if (localSettings.Values["EULA"] == null || !localSettings.Values["EULA"].Equals("Accepted"))
                 {
-                    JObject data = new JObject();
+                    Dictionary<string, string> data = new Dictionary<string, string>();
                     data.Add("title", "EULA");
                     data.Add("file", "eula.html");
 
@@ -117,19 +121,78 @@ namespace Hindi_Jokes
                 }
                 else
                 {
-                    // Initialize applicatio before use
-                    await HanuDowsApplication.getInstance().InitializeApplication();
+                    if (launchString != null && launchString.Equals("ShowInfoMessage")) {
 
-                    if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
-                    {
-                        throw new Exception("Failed to create initial page");
+                        if (!rootFrame.Navigate(typeof(HTMLDisplayPage), null))
+                        {
+                            throw new Exception("Failed to create initial page");
+                        }
+
                     }
+                    else
+                    {
+                        // Initialize applicatio before use
+                        await HanuDowsApplication.getInstance().InitializeApplication();
+
+                        // Register backgroud task for Push Notifications
+                        await registerBackgroundTaskForPushNotification();
+
+                        if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                        {
+                            throw new Exception("Failed to create initial page");
+                        }
+                    }
+                    
                 }
                 
             }
 
             // Ensure the current window is active
             Window.Current.Activate();
+        }
+
+        private async Task<bool> registerBackgroundTaskForPushNotification()
+        {
+
+            ResourceLoader rl = new ResourceLoader();
+            string app_id = rl.GetString("ApplicationID");
+
+            var taskRegistered = false;
+            var exampleTaskName = app_id + "_NotificationBackgroundTask";
+
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == exampleTaskName)
+                {
+                    taskRegistered = true;
+                    break;
+                }
+            }
+
+            if (taskRegistered)
+            {
+                //OutputText.Text = "Task already registered.";
+                return true;
+            }
+
+            // Register background task
+            BackgroundAccessStatus backgroundStatus = await BackgroundExecutionManager.RequestAccessAsync();
+
+            if (backgroundStatus != BackgroundAccessStatus.Denied && backgroundStatus != BackgroundAccessStatus.Unspecified)
+            {
+                var builder = new BackgroundTaskBuilder();
+
+                builder.Name = exampleTaskName;
+                builder.TaskEntryPoint = "HindiJokes_BackgroundTasks.NotificationBackgroundTask";
+                builder.SetTrigger(new PushNotificationTrigger());
+                BackgroundTaskRegistration task = builder.Register();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
 #if WINDOWS_PHONE_APP

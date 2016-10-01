@@ -1,5 +1,5 @@
-﻿using Hindi_Jokes.Common;
-using Hindi_Jokes.HanuDows;
+﻿using HanuDowsFramework;
+using Hindi_Jokes.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -120,7 +120,7 @@ namespace Hindi_Jokes
             progressBar.Visibility = Visibility.Visible;
 
             HanuDowsApplication app = HanuDowsApplication.getInstance();
-            bool success = await app.upladNewPost(title,content);
+            bool success = await app.UploadNewPost(title,content);
 
             progressBar.IsIndeterminate = false;
             progressBar.Visibility = Visibility.Collapsed;

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="AyanshTechnoSoft.BestHindiJokes" Publisher="CN=B7D74EA3-BB0B-4D17-A226-46FA249C1A3C" Version="1.0.0.7" />
+  <Identity Name="AyanshTechnoSoft.BestHindiJokes" Publisher="CN=B7D74EA3-BB0B-4D17-A226-46FA249C1A3C" Version="1.2.0.4" />
   <mp:PhoneIdentity PhoneProductId="5f01baae-f6de-4829-b6f4-55c8f964e387" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Best Hindi Jokes</DisplayName>
@@ -17,6 +17,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Hindi_Jokes.WindowsPhone.App">
       <m3:VisualElements DisplayName="Hindi Jokes" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="Hindi Jokes" ForegroundText="light" BackgroundColor="transparent" ToastCapable="true">
+        <m3:LockScreen Notification="badge" BadgeLogo="Assets\BadgeLogo.png" />
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\MediumLogo.png">
           <m3:ShowNameOnTiles>
             <m3:ShowOn Tile="square150x150Logo" />
@@ -29,7 +30,7 @@
         </m3:InitialRotationPreference>
       </m3:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="Hindi_Jokes.NotificationBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="HindiJokes_BackgroundTasks.NotificationBackgroundTask">
           <BackgroundTasks>
             <Task Type="pushNotification" />
           </BackgroundTasks>
