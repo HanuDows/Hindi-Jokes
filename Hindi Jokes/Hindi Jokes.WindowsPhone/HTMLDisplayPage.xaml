@@ -34,7 +34,20 @@
 
         <!--TODO: Content should be placed within the following grid-->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="10,10,10,10">
+            
             <WebView x:Name="webView" />
+
+            <ProgressBar Name="progressBar"
+                         IsIndeterminate="False"
+                         HorizontalAlignment="Center" 
+                         Height="30" 
+                         VerticalAlignment="Center" 
+                         Width="250" 
+                         Visibility="Collapsed">
+            </ProgressBar>
+
         </Grid>
+
     </Grid>
+        
 </Page>

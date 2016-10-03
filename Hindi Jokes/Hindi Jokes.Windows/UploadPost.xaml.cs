@@ -112,6 +112,21 @@ namespace Hindi_Jokes
             string content = Post_Content.Text;
             MessageDialog messageDialog;
 
+            // Sanity Check
+            if (title.Length <= 0)
+            {
+                messageDialog = new MessageDialog("Please enter the Joke Title");
+                await messageDialog.ShowAsync();
+                return;
+            }
+
+            if (content.Length <= 0)
+            {
+                messageDialog = new MessageDialog("The content is empty. Please make sure you have typed something.");
+                await messageDialog.ShowAsync();
+                return;
+            }
+
             // Show progress bar
             progressBar.IsIndeterminate = true;
             progressBar.Visibility = Visibility.Visible;

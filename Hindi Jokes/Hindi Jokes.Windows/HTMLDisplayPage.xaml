@@ -75,8 +75,19 @@
 
         <Grid Grid.Row="1"
               Margin="10,10,10,10">
+            
             <WebView Name="webView">
             </WebView>
+
+            <ProgressBar Name="progressBar"
+                         IsIndeterminate="False"
+                         HorizontalAlignment="Center" 
+                         Height="30" 
+                         VerticalAlignment="Center" 
+                         Width="250" 
+                         Visibility="Collapsed">
+            </ProgressBar>
+
         </Grid>
         
     </Grid>

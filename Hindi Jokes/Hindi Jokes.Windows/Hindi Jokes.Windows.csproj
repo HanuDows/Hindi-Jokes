@@ -175,15 +175,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="HanuDowsFramework">
-      <HintPath>..\..\..\HanuDowsFramework\HanuDowsFramework\bin\Release\HanuDowsFramework.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\HindiJokes_BackgroundTasks\HindiJokes_BackgroundTasks.csproj">
       <Project>{1eb1f095-4efb-48fa-8839-837a8f4279bd}</Project>
       <Name>HindiJokes_BackgroundTasks</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="HanuDowsFramework">
+      <HintPath>..\..\..\HanuDows-Framework\HanuDowsFramework\bin\Release\HanuDowsFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

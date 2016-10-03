@@ -143,11 +143,18 @@ namespace Hindi_Jokes
 
         private async void OnAccepted(object sender, RoutedEventArgs e)
         {
+            // Show progress bar
+            progressBar.IsIndeterminate = true;
+            progressBar.Visibility = Visibility.Visible;
+
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["EULA"] = "Accepted";
 
             // Now navigate to main page
             await HanuDowsApplication.getInstance().InitializeApplication();
+
+            progressBar.IsIndeterminate = false;
+            progressBar.Visibility = Visibility.Collapsed;
 
             Frame.Navigate(typeof(MainPage));
             Frame.BackStack.RemoveAt(0);
