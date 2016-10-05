@@ -148,6 +148,8 @@ namespace Hindi_Jokes
             }
 
             // Ensure the current window is active
+            //var mainPage = rootFrame.Content as MainPage;
+            //mainPage.showPostOnUI();
             Window.Current.Activate();
         }
 

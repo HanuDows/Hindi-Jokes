@@ -18,17 +18,8 @@ namespace Hindi_Jokes
     {
 
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
         private int index, maxCount;
         private HanuDowsApplication hanuDowsApp;
-
-        /// <summary>
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel
-        {
-            get { return this.defaultViewModel; }
-        }
 
         /// <summary>
         /// NavigationHelper is used on each page to aid in navigation and 
@@ -154,13 +145,13 @@ namespace Hindi_Jokes
             try
             {
                 Post post = PostManager.getInstance().PostList[index];
+                string content = post.ShareableContent;
+                content += "\n\n ~via ayansh.com/hj";
 
                 DataRequest request = args.Request;
                 var deferral = request.GetDeferral();
                 request.Data.Properties.Title = post.PostTitle;
-                //request.Data.Properties.Description = post.PostTitle;
-                //request.Data.SetHtmlFormat(post.PostContent);
-                request.Data.SetText("\n\n" + post.ShareableContent);
+                request.Data.SetText("\n\n" + content);
 
                 deferral.Complete();
             }

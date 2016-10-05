@@ -15,12 +15,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ObservablePost.cs" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\about.html" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultData.xml" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\eula.html" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\help.html" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />

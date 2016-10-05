@@ -17,9 +17,14 @@ namespace Hindi_Jokes
     public sealed partial class MainPage : Page
     {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
         private int index, maxCount;
         private HanuDowsApplication hanuDowsApp;
+        private ObservablePost _postData = new ObservablePost(new Post());
+
+        public ObservablePost PostData
+        {
+            get { return _postData; }
+        }
 
         public MainPage()
         {
@@ -28,10 +33,15 @@ namespace Hindi_Jokes
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+
             index = 0;
             hanuDowsApp = HanuDowsApplication.getInstance();
             maxCount = PostManager.getInstance().PostList.Count;
-
+            if (maxCount > 0)
+            {
+                _postData.setPost(PostManager.getInstance().PostList[index]);
+            }
+            
         }
 
         /// <summary>
@@ -40,15 +50,6 @@ namespace Hindi_Jokes
         public NavigationHelper NavigationHelper
         {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel
-        {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>
@@ -116,7 +117,7 @@ namespace Hindi_Jokes
                 index = 0;
             }
 
-            showPostOnUI();
+            //showPostOnUI();
 
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += ShareData;
@@ -127,14 +128,13 @@ namespace Hindi_Jokes
         {
             try
             {
-                Post post = PostManager.getInstance().PostList[index];
+                string content = _postData.Content;
+                content += "\n\n ~via ayansh.com/hj";
 
                 DataRequest request = args.Request;
                 var deferral = request.GetDeferral();
-                request.Data.Properties.Title = post.PostTitle;
-                //request.Data.Properties.Description = post.PostTitle;
-                //request.Data.SetHtmlFormat(post.PostContent);
-                request.Data.SetText("\n\n" + post.ShareableContent);
+                request.Data.Properties.Title = _postData.Title;
+                request.Data.SetText("\n\n" + content);
 
                 deferral.Complete();
             }
@@ -154,7 +154,7 @@ namespace Hindi_Jokes
             {
                 index--;
             }
-
+            
             showPostOnUI();
         }
 
@@ -206,10 +206,8 @@ namespace Hindi_Jokes
         private void showPostOnUI()
         {
             Post post = PostManager.getInstance().PostList[index];
-
-            postTitle.Text = post.PostTitle;
-            postMeta.Text = "Published on: " + post.PubDate;
-            postView.Text = post.ShareableContent;
+            _postData.setPost(post);
+            //_postData.DataChanged();
         }
 
         #endregion

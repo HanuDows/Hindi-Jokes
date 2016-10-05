@@ -28,7 +28,11 @@ namespace HindiJokes_BackgroundTasks
 
             if (task.Equals("PerformSync"))
             {
-                // Perform Synchronization
+                // Temp Debugging
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                localSettings.Values["LastSyncTime"] = (new DateTime(2016, 10, 4)).ToString();
+
+               // Perform Synchronization
                 int count = await app.PerformSync();
 
                 if (count > 0)
@@ -41,8 +45,13 @@ namespace HindiJokes_BackgroundTasks
 
             if (task.Equals("ShowInfoMessage"))
             {
+                // Temporary for debugging
+                int id = (int)xdoc.Root.Element("Title");
+                app.DeletePostFromDB(id);
+
                 string title = xdoc.Root.Element("Title").Value;
                 string content = xdoc.Root.Element("Content").Value;
+                
                 showInfoMessage(title, content);
             }
 
