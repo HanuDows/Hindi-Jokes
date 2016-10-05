@@ -43,6 +43,9 @@ namespace Hindi_Jokes
         /// <param name="e">Details about the launch request and process.</param>
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -107,7 +110,7 @@ namespace Hindi_Jokes
                 // configuring the new page by passing required information as a navigation
                 // parameter
                 // Navigate to main page only if the EULA is accepted
-                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                
                 if (localSettings.Values["EULA"] == null || !localSettings.Values["EULA"].Equals("Accepted"))
                 {
                     Dictionary<string, string> data = new Dictionary<string, string>();
@@ -150,6 +153,15 @@ namespace Hindi_Jokes
             // Ensure the current window is active
             //var mainPage = rootFrame.Content as MainPage;
             //mainPage.showPostOnUI();
+            /*
+            if (rootFrame.Content.GetType().Equals(typeof(MainPage)))
+            {
+                if (localSettings.Values["RefreshRequired"] != null && !localSettings.Values["RefreshRequired"].Equals("X"))
+                {
+                    // TODO
+                }
+            }
+            //*/
             Window.Current.Activate();
         }
 

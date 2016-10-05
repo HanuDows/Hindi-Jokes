@@ -40,6 +40,7 @@ namespace HindiJokes_BackgroundTasks
                     string title = "New Jokes downloaded";
                     string message = count + " new jokes have been downloaded.";
                     showToastNotification(title, message);
+                    localSettings.Values["RefreshRequired"] = "X";
                 }
             }
 
@@ -53,6 +54,12 @@ namespace HindiJokes_BackgroundTasks
                 string content = xdoc.Root.Element("Content").Value;
                 
                 showInfoMessage(title, content);
+            }
+
+            if (task.Equals("DeletePostID"))
+            {
+                int id = (int)xdoc.Root.Element("PostID");
+                app.DeletePostFromDB(id);
             }
 
             _deferral.Complete();
