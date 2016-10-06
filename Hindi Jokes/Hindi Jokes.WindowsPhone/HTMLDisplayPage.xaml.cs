@@ -2,19 +2,8 @@
 using Hindi_Jokes.Common;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -138,6 +127,8 @@ namespace Hindi_Jokes
 
         private async void OnAccepted(object sender, RoutedEventArgs e)
         {
+            commandBar.Visibility = Visibility.Collapsed;
+
             // Show progress bar
             progressBar.IsIndeterminate = true;
             progressBar.Visibility = Visibility.Visible;
@@ -158,6 +149,8 @@ namespace Hindi_Jokes
 
         private void OnRejected(object sender, RoutedEventArgs e)
         {
+            commandBar.Visibility = Visibility.Collapsed;
+
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["EULA"] = "Rejected";
             Application.Current.Exit();

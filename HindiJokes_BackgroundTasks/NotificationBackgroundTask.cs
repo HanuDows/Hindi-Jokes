@@ -1,8 +1,5 @@
 ﻿using HanuDowsFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
@@ -37,7 +34,6 @@ namespace HindiJokes_BackgroundTasks
                     string title = "New Jokes downloaded";
                     string message = count + " new jokes have been downloaded.";
                     showToastNotification(title, message);
-                    localSettings.Values["RefreshRequired"] = "X";
                 }
             }
 

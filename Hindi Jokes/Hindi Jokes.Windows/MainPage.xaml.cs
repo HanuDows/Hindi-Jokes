@@ -1,5 +1,4 @@
-﻿using HanuDowsFramework;
-using Hindi_Jokes.Common;
+﻿using Hindi_Jokes.Common;
 using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.DataTransfer;

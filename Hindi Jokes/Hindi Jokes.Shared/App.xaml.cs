@@ -150,19 +150,12 @@ namespace Hindi_Jokes
                 
             }
 
+            HanuDowsApplication.getInstance().ReadPostsFromDB(false);
+            
             // Ensure the current window is active
-            //*
-            if (rootFrame.Content.GetType().Equals(typeof(MainPage)))
-            {
-                if (localSettings.Values["RefreshRequired"] != null && localSettings.Values["RefreshRequired"].Equals("X"))
-                {
-                    HanuDowsApplication.getInstance().ReadPostsFromDB(false);
-                    ObservablePost.getInstance().Reset();
-                    localSettings.Values["RefreshRequired"] = "";
-                }
-            }
-            //*/
             Window.Current.Activate();
+            ObservablePost.getInstance().Reset();
+
         }
 
         private async Task<bool> registerBackgroundTaskForPushNotification()
