@@ -18,8 +18,12 @@ namespace Hindi_Jokes
     {
 
         private NavigationHelper navigationHelper;
-        private int index, maxCount;
-        private HanuDowsApplication hanuDowsApp;
+        private ObservablePost _postData = ObservablePost.getInstance();
+
+        public ObservablePost PostData
+        {
+            get { return _postData; }
+        }
 
         /// <summary>
         /// NavigationHelper is used on each page to aid in navigation and 
@@ -37,9 +41,7 @@ namespace Hindi_Jokes
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
             this.navigationHelper.SaveState += navigationHelper_SaveState;
-            index = 0;
-            hanuDowsApp = HanuDowsApplication.getInstance();
-            maxCount = PostManager.getInstance().PostList.Count;
+            
         }
 
         /// <summary>
@@ -57,14 +59,9 @@ namespace Hindi_Jokes
         {
             if (e.PageState != null && e.PageState.ContainsKey("PostIndex"))
             {
-                index = (int)e.PageState["PostIndex"];
+                _postData.CurrentIndex = (int)e.PageState["PostIndex"];
             }
 
-            if (PostManager.getInstance().PostList.Count <= 0)
-            {
-                hanuDowsApp.GetAllPosts();
-                maxCount = PostManager.getInstance().PostList.Count;
-            }
         }
 
         /// <summary>
@@ -77,7 +74,7 @@ namespace Hindi_Jokes
         /// serializable state.</param>
         private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            e.PageState["PostIndex"] = index;
+            e.PageState["PostIndex"] = _postData.CurrentIndex;
         }
 
         #region NavigationHelper registration
@@ -95,14 +92,8 @@ namespace Hindi_Jokes
         {
             navigationHelper.OnNavigatedTo(e);
 
-            if (PostManager.getInstance().PostList.Count <= 0)
-            {
-                hanuDowsApp.GetAllPosts();
-                maxCount = PostManager.getInstance().PostList.Count;
-                index = 0;
-            }
-
-            showPostOnUI();
+            _postData.Reset();
+            //showPostOnUI();
 
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += ShareData;
@@ -117,16 +108,8 @@ namespace Hindi_Jokes
 
         private void nextJoke_Click(object sender, RoutedEventArgs e)
         {
-            if (index == maxCount-1)
-            {
-                index = 0;
-            }
-            else
-            {
-                index++;
-            }
-
-            showPostOnUI();
+            _postData.NextPost();
+            //showPostOnUI();
 
         }
 
@@ -144,13 +127,12 @@ namespace Hindi_Jokes
         {
             try
             {
-                Post post = PostManager.getInstance().PostList[index];
-                string content = post.ShareableContent;
+                string content = _postData.Content;
                 content += "\n\n ~via ayansh.com/hj";
 
                 DataRequest request = args.Request;
                 var deferral = request.GetDeferral();
-                request.Data.Properties.Title = post.PostTitle;
+                request.Data.Properties.Title = _postData.Title;
                 request.Data.SetText("\n\n" + content);
 
                 deferral.Complete();
@@ -179,26 +161,16 @@ namespace Hindi_Jokes
 
         private void previousJoke_Click(object sender, RoutedEventArgs e)
         {
-            if (index == 0)
-            {
-                index = maxCount - 1;
-            }
-            else
-            {
-                index--;
-            }
-
-            showPostOnUI();
+            _postData.PreviousPost();
+            //showPostOnUI();
 
         }
 
         private void showPostOnUI()
         {
-            Post post = PostManager.getInstance().PostList[index];
-
-            postTitle.Text = post.PostTitle;
-            postMeta.Text = "Published on: " + post.PubDate;
-            postView.Text = post.ShareableContent;
+            //postTitle.Text = _postData.Title;
+            //postMeta.Text = _postData.MetaData;
+            //postView.Text = _postData.Content;
         }
 
     }

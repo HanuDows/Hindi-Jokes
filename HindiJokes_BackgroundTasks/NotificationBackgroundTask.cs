@@ -25,14 +25,11 @@ namespace HindiJokes_BackgroundTasks
             string task = xdoc.Root.Element("Task").Value;
 
             HanuDowsApplication app = HanuDowsApplication.getInstance();
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
             if (task.Equals("PerformSync"))
             {
-                // Temp Debugging
-                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                localSettings.Values["LastSyncTime"] = (new DateTime(2016, 10, 4)).ToString();
-
-               // Perform Synchronization
+                // Perform Synchronization
                 int count = await app.PerformSync();
 
                 if (count > 0)
@@ -46,9 +43,6 @@ namespace HindiJokes_BackgroundTasks
 
             if (task.Equals("ShowInfoMessage"))
             {
-                // Temporary for debugging
-                int id = (int)xdoc.Root.Element("Title");
-                app.DeletePostFromDB(id);
 
                 string title = xdoc.Root.Element("Title").Value;
                 string content = xdoc.Root.Element("Content").Value;
@@ -60,6 +54,13 @@ namespace HindiJokes_BackgroundTasks
             {
                 int id = (int)xdoc.Root.Element("PostID");
                 app.DeletePostFromDB(id);
+            }
+
+            if (task.Equals("SyncAllAgain"))
+            {
+                // Set last sync time to Hanu Epoch
+                localSettings.Values["LastSyncTime"] = (new DateTime(2011, 11, 4)).ToString();
+                await app.PerformSync();
             }
 
             _deferral.Complete();

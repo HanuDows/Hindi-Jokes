@@ -151,14 +151,14 @@ namespace Hindi_Jokes
             }
 
             // Ensure the current window is active
-            //var mainPage = rootFrame.Content as MainPage;
-            //mainPage.showPostOnUI();
-            /*
+            //*
             if (rootFrame.Content.GetType().Equals(typeof(MainPage)))
             {
-                if (localSettings.Values["RefreshRequired"] != null && !localSettings.Values["RefreshRequired"].Equals("X"))
+                if (localSettings.Values["RefreshRequired"] != null && localSettings.Values["RefreshRequired"].Equals("X"))
                 {
-                    // TODO
+                    HanuDowsApplication.getInstance().ReadPostsFromDB(false);
+                    ObservablePost.getInstance().Reset();
+                    localSettings.Values["RefreshRequired"] = "";
                 }
             }
             //*/

@@ -12,8 +12,91 @@ namespace Hindi_Jokes
     public class ObservablePost : INotifyPropertyChanged
     {
         private string _title, _content, _metaData;
+        private PostManager pm;
+        private int index;
+
+        private static ObservablePost instance;
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        public static ObservablePost getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new ObservablePost();
+            }
+            return instance;
+        }
+
+        private ObservablePost()
+        {
+            pm = PostManager.getInstance();
+            _title = "Restart the application";
+            _metaData = "";
+            _content = "Error occured during initialization, please restart the application";
+
+            index = 0;
+        }
+
+        internal void Reset()
+        {
+            index = 0;
+            if (pm.PostList.Count > 0)
+            {
+                readPost();
+            }
+            else
+            {
+                _title = "Restart the application";
+                _metaData = "";
+                _content = "Error occured during initialization, please restart the application";
+            }
+
+            NotifyDataChanged();
+        }
+
+        internal void NextPost()
+        {
+            if (index == pm.PostList.Count - 1)
+            {
+                Reset();
+            }
+            else
+            {
+                index++;
+                readPost();
+            }
+
+            if (pm.PostList.Count - index <=3)
+            {
+                HanuDowsApplication.getInstance().ReadPostsFromDB(true);
+            }
+            
+        }
+
+        internal void PreviousPost()
+        {
+            if (index == 0)
+            {
+                index = pm.PostList.Count - 1;
+            }
+            else
+            {
+                index--;
+            }
+
+            readPost();
+        }
+
+        private void readPost()
+        {
+            Post post = pm.PostList[index];
+            _title = post.PostTitle;
+            _metaData = "Published On: " + post.PubDate;
+            _content = post.ShareableContent;
+
+            NotifyDataChanged();
+        }
 
         public string Title
         {
@@ -30,22 +113,27 @@ namespace Hindi_Jokes
             get { return _metaData; }
         }
 
-        public void setPost(Post post)
+        public int CurrentIndex
         {
-            _title = post.PostTitle;
-            _metaData = "Published On: " + post.PubDate;
-            _content = post.ShareableContent;
-            DataChanged();
+            get { return index; }
+
+            set {
+                index = value;
+                if (index >= pm.PostList.Count)
+                {
+                    Reset();
+                }
+                else
+                {
+                    readPost();
+                }
+            }
         }
 
-        public ObservablePost(Post post)
-        {
-            setPost(post);
-        }
-
-        private void DataChanged()
+        private void NotifyDataChanged()
         {
             this.PropertyChanged(this, new PropertyChangedEventArgs(String.Empty));
         }
+
     }
 }

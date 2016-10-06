@@ -17,9 +17,7 @@ namespace Hindi_Jokes
     public sealed partial class MainPage : Page
     {
         private NavigationHelper navigationHelper;
-        private int index, maxCount;
-        private HanuDowsApplication hanuDowsApp;
-        private ObservablePost _postData = new ObservablePost(new Post());
+        private ObservablePost _postData = ObservablePost.getInstance();
 
         public ObservablePost PostData
         {
@@ -33,14 +31,6 @@ namespace Hindi_Jokes
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-
-            index = 0;
-            hanuDowsApp = HanuDowsApplication.getInstance();
-            maxCount = PostManager.getInstance().PostList.Count;
-            if (maxCount > 0)
-            {
-                _postData.setPost(PostManager.getInstance().PostList[index]);
-            }
             
         }
 
@@ -67,13 +57,7 @@ namespace Hindi_Jokes
         {
             if (e.PageState != null && e.PageState.ContainsKey("PostIndex"))
             {
-                index = (int)e.PageState["PostIndex"];
-            }
-
-            if (PostManager.getInstance().PostList.Count <= 0)
-            {
-                hanuDowsApp.GetAllPosts();
-                maxCount = PostManager.getInstance().PostList.Count;
+                _postData.CurrentIndex = (int)e.PageState["PostIndex"];
             }
 
         }
@@ -88,7 +72,7 @@ namespace Hindi_Jokes
         /// serializable state.</param>
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            e.PageState["PostIndex"] = index;
+            e.PageState["PostIndex"] = _postData.CurrentIndex;
         }
 
         #region NavigationHelper registration
@@ -110,13 +94,7 @@ namespace Hindi_Jokes
         {
             this.navigationHelper.OnNavigatedTo(e);
 
-            if (PostManager.getInstance().PostList.Count <= 0)
-            {
-                hanuDowsApp.GetAllPosts();
-                maxCount = PostManager.getInstance().PostList.Count;
-                index = 0;
-            }
-
+            _postData.Reset();
             //showPostOnUI();
 
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
@@ -146,16 +124,8 @@ namespace Hindi_Jokes
 
         private void Previous_Joke_Click(object sender, RoutedEventArgs e)
         {
-            if (index == 0)
-            {
-                index = maxCount - 1;
-            }
-            else
-            {
-                index--;
-            }
-            
-            showPostOnUI();
+            _postData.PreviousPost();
+            //showPostOnUI();
         }
 
         private void New_Joke_Click(object sender, RoutedEventArgs e)
@@ -170,16 +140,8 @@ namespace Hindi_Jokes
 
         private void Next_Joke_Click(object sender, RoutedEventArgs e)
         {
-            if (index == maxCount - 1)
-            {
-                index = 0;
-            }
-            else
-            {
-                index++;
-            }
-
-            showPostOnUI();
+            _postData.NextPost();
+            //showPostOnUI();
         }
 
         private void ShowHelp(object sender, RoutedEventArgs e)
@@ -205,8 +167,8 @@ namespace Hindi_Jokes
 
         private void showPostOnUI()
         {
-            Post post = PostManager.getInstance().PostList[index];
-            _postData.setPost(post);
+            //Post post = PostManager.getInstance().PostList[index];
+            //_postData.setPost(post);
             //_postData.DataChanged();
         }
 
