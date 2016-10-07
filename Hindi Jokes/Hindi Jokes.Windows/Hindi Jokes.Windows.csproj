@@ -181,7 +181,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="HanuDowsFramework">
+    <Reference Include="HanuDowsFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\HanuDows-Framework\HanuDowsFramework\bin\Release\HanuDowsFramework.dll</HintPath>
     </Reference>
   </ItemGroup>

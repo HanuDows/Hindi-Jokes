@@ -135,7 +135,8 @@ namespace Hindi_Jokes
                     else
                     {
                         // Initialize applicatio before use
-                        await HanuDowsApplication.getInstance().InitializeApplication();
+                        HanuDowsApplication app = HanuDowsApplication.getInstance();
+                        await app.InitializeApplication();
 
                         // Register backgroud task for Push Notifications
                         await registerBackgroundTaskForPushNotification();
