@@ -1,0 +1,129 @@
+<Page x:Class="Hindi_Jokes.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Behaviors="using:Template10.Behaviors"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:Hindi_Jokes.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
+      xmlns:vm="using:Hindi_Jokes.ViewModels" mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:MainPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+                <VisualState x:Name="VisualStateNarrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--  TODO: change properties for narrow view  -->
+                        <Setter Target="pageHeader.Text" Value="Jokes" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateNormal">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--  TODO: change properties for normal view  -->
+                        <Setter Target="pageHeader.Text" Value="Hindi Jokes" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--  TODO: change properties for wide view  -->
+                        <Setter Target="pageHeader.Text" Value="Hindi Jokes" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Jokes">
+
+            <!--  Primary commands  -->
+            <controls:PageHeader.PrimaryCommands>
+                <AppBarButton Icon="Back" Click="{x:Bind ViewModel.PreviousPost}" Label="Previous"/>
+                <AppBarButton Icon="People" Click="{x:Bind ViewModel.SharePost}" Label="Share"/>
+                <AppBarButton Icon="Forward" Click="{x:Bind ViewModel.NextPost}" Label="Next"/>
+            </controls:PageHeader.PrimaryCommands>
+
+            <!--  secondary commands  -->
+            <controls:PageHeader.SecondaryCommands>
+                <AppBarButton Click="{x:Bind ViewModel.UploadPost}" Label="Upload Joke" Icon="Upload"/>
+                <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoHelp}" Label="Help" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoOurApps}" Label="Our Apps" />
+            </controls:PageHeader.SecondaryCommands>
+
+        </controls:PageHeader>
+
+        <ScrollViewer x:Name="Post_Container"
+                      RelativePanel.AlignLeftWithPanel="True"
+                      RelativePanel.AlignRightWithPanel="True"
+                      RelativePanel.Below="pageHeader"
+                      RelativePanel.Above="AD_UI">
+
+            <StackPanel Margin="10,2,10,2">
+
+                <TextBlock x:Name="Post_Title"
+                   RelativePanel.Below="pageHeader"
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
+                   Text="{Binding PostTitle, Mode=OneWay}"
+                   TextWrapping="WrapWholeWords"
+                   FontSize="24">
+
+                </TextBlock>
+
+                <TextBlock x:Name="Post_Meta"
+                           Margin="5,10,5,10"
+                   RelativePanel.Below="Post_Title"
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
+                   Text="{Binding PostMeta, Mode=OneWay}"
+                   TextWrapping="WrapWholeWords"
+                   FontSize="16">
+
+                </TextBlock>
+
+                <TextBlock x:Name="Post_Content"
+                   RelativePanel.Below="Post_Meta"
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
+                   Text="{Binding PostContent, Mode=OneWay}"
+                   TextWrapping="WrapWholeWords"
+                   FontSize="20">
+
+                </TextBlock>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <UI:AdControl x:Name="AD_UI"
+                      Margin="2,2,2,5"
+                      ApplicationId="71744b8e-bac7-4fdb-9168-32965ba39dc6"
+                      AdUnitId="11646702"
+                      Height="50"
+                      RelativePanel.AlignBottomWithPanel="True"
+                      RelativePanel.AlignHorizontalCenterWith="pageHeader"
+                      Width="320" />
+
+
+    </RelativePanel>
+
+</Page>

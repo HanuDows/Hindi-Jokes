@@ -40,9 +40,19 @@ namespace HindiJokes_BackgroundTasks
             if (task.Equals("ShowInfoMessage"))
             {
 
+                string mid = xdoc.Root.Element("MessageID").Value;
                 string title = xdoc.Root.Element("Title").Value;
                 string content = xdoc.Root.Element("Content").Value;
-                
+
+                var last_mid = localSettings.Values["ToastMessageID"];
+
+                if (last_mid != null && last_mid.Equals(mid))
+                {
+                    return;
+                }
+
+                localSettings.Values["ToastMessageID"] = mid;
+
                 showInfoMessage(title, content);
             }
 
