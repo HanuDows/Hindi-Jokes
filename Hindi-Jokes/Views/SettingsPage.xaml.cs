@@ -16,6 +16,7 @@ namespace Hindi_Jokes.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            GoogleAnalytics.EasyTracker.GetTracker().SendView("SettingsPage");
             var index = int.Parse(_SerializationService.Deserialize(e.Parameter?.ToString()).ToString());
             MyPivot.SelectedIndex = index;
         }

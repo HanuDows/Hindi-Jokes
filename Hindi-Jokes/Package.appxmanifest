@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="AyanshTechnoSoft.BestHindiJokes" Publisher="CN=B7D74EA3-BB0B-4D17-A226-46FA249C1A3C" Version="1.6.3.0" />
+  <Identity Name="AyanshTechnoSoft.BestHindiJokes" Publisher="CN=B7D74EA3-BB0B-4D17-A226-46FA249C1A3C" Version="1.8.5.0" />
   <mp:PhoneIdentity PhoneProductId="d2d25cec-86bd-427e-8371-f2389e8d8b64" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Best Hindi Jokes</DisplayName>

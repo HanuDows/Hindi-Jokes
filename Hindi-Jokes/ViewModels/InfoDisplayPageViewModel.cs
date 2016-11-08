@@ -27,6 +27,7 @@ namespace Hindi_Jokes.ViewModels
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
         {
+            GoogleAnalytics.EasyTracker.GetTracker().SendView("InfoDisplayPage");
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             InfoTitle = localSettings.Values["ToastMessageTitle"].ToString();
             InfoContent = localSettings.Values["ToastMessageContent"].ToString();

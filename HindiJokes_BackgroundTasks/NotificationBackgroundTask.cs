@@ -26,8 +26,28 @@ namespace HindiJokes_BackgroundTasks
 
             if (task.Equals("PerformSync"))
             {
-                // Perform Synchronization
-                int count = await app.PerformSync();
+                int count = 0;
+                XElement xe = xdoc.Root.Element("LatestDataTimeStamp");
+
+                if (xe == null)
+                {
+                    // Old Code --- Perform Synchronization
+                    count = await app.PerformSync();
+                }
+                else
+                {
+                    string latest_data_timestamp_string = xe.Value;
+                    DateTime latest_data_timestamp = DateTime.Parse(latest_data_timestamp_string);
+
+                    DateTime lastSyncTime = DateTime.Parse(localSettings.Values["LastSyncTime"].ToString());
+
+                    int diff = latest_data_timestamp.CompareTo(lastSyncTime);
+                    if (diff >= 0)
+                    {
+                        // Perform Sync
+                        count = await app.PerformSync();
+                    }
+                }
 
                 if (count > 0)
                 {

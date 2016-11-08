@@ -30,6 +30,8 @@ namespace Hindi_Jokes.ViewModels
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
         {
+            GoogleAnalytics.EasyTracker.GetTracker().SendView("MainPage");
+
             if (suspensionState.Any())
             {
                 //Value = suspensionState[nameof(Value)]?.ToString();
@@ -102,6 +104,7 @@ namespace Hindi_Jokes.ViewModels
 
         public void SharePost()
         {
+            GoogleAnalytics.EasyTracker.GetTracker().SendSocial("WhatsApp", "share", "");
             DataTransferManager.ShowShareUI();
         }
 
