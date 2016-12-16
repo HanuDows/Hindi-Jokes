@@ -101,6 +101,7 @@
                 </TextBlock>
 
                 <TextBlock x:Name="Post_Content"
+                   Visibility="{Binding TextVisibility}"
                    RelativePanel.Below="Post_Meta"
                    RelativePanel.AlignLeftWithPanel="True"
                    RelativePanel.AlignRightWithPanel="True"
@@ -109,6 +110,14 @@
                    FontSize="20">
 
                 </TextBlock>
+
+                <Image x:Name="Meme_Content"
+                       Visibility="{Binding MemeVisibility}"
+                       Source="{Binding MemeContent}"
+                       RelativePanel.Below="Post_Meta"
+                       RelativePanel.AlignLeftWithPanel="True"
+                       RelativePanel.AlignRightWithPanel="True">
+                </Image>
 
             </StackPanel>
 

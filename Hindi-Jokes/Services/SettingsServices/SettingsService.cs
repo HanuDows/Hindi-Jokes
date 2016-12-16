@@ -29,6 +29,20 @@ namespace Hindi_Jokes.Services.SettingsServices
             }
         }
 
+        public bool ShowMemes
+        {
+            get { return _helper.Read<bool>(nameof(ShowMemes), true); }
+            set
+            {
+                _helper.Write(nameof(ShowMemes), value);
+            }
+        }
+
+        public bool isMemeSet
+        {
+            get { return _helper.Exists(nameof(ShowMemes)); }
+        }
+
         public ApplicationTheme AppTheme
         {
             get

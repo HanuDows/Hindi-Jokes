@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Data;
 using HanuDowsFramework;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Background;
+using Windows.Storage;
 
 namespace Hindi_Jokes
 {
@@ -42,10 +43,27 @@ namespace Hindi_Jokes
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
-            // long-running startup tasks go here
-            // Initialize applicatio before use
-            await HanuDowsApplication.getInstance().InitializeApplication();
+            HanuDowsApplication _app = HanuDowsApplication.getInstance();
 
+            // Set Default Settings
+            var localSettings = ApplicationData.Current.LocalSettings;
+
+            if (localSettings.Values["FirstUse"] == null)
+            {
+                _app.AddSyncCategory("Veg Joke");
+                _app.AddSyncCategory("Meme");
+            }
+
+            var _settings = SettingsService.Instance;
+            if (!_settings.isMemeSet)
+            {
+                _app.AddSyncCategory("Meme");
+            }
+
+            // long-running startup tasks go here
+            // Initialize application before use
+            await _app.InitializeApplication();
+            
             // Register backgroud task for Push Notifications
             await registerBackgroundTaskForPushNotification();
 

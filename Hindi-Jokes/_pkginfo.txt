@@ -1,1 +1,1 @@
-C:\Users\I041474\Documents\Visual Studio 2015\Projects\Hindi-Jokes\Hindi-Jokes\AppPackages\Hindi-Jokes_1.8.5.0\Hindi-Jokes_1.8.5.0_x86_x64_arm.appxbundle
+C:\Users\I041474\Documents\Visual Studio 2015\Projects\Hindi-Jokes\Hindi-Jokes\AppPackages\Hindi-Jokes_2.0.1.0\Hindi-Jokes_2.0.1.0_x86_x64_arm.appxbundle

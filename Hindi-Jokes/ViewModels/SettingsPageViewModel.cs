@@ -1,3 +1,4 @@
+using HanuDowsFramework;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,6 +34,26 @@ namespace Hindi_Jokes.ViewModels
             else
             {
                 _settings = Services.SettingsServices.SettingsService.Instance;
+            }
+        }
+
+        public bool ShowMemes
+        {
+            get { return _settings.ShowMemes; }
+            set
+            {
+
+                if (value)
+                {
+                    HanuDowsApplication.getInstance().AddSyncCategory("Meme");
+                }
+                else
+                {
+                    HanuDowsApplication.getInstance().RemoveSyncCategory("Meme");
+                }
+
+                _settings.ShowMemes = value;
+                base.RaisePropertyChanged();
             }
         }
 

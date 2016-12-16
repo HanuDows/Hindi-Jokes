@@ -1,5 +1,6 @@
 ﻿using HanuDowsFramework;
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
@@ -55,6 +56,8 @@ namespace HindiJokes_BackgroundTasks
                     string message = count + " new jokes have been downloaded.";
                     showToastNotification(title, message);
                 }
+
+                _deleteOldData();
             }
 
             if (task.Equals("ShowInfoMessage"))
@@ -79,7 +82,7 @@ namespace HindiJokes_BackgroundTasks
             if (task.Equals("DeletePostID"))
             {
                 int id = (int)xdoc.Root.Element("PostID");
-                app.DeletePostFromDB(id);
+                await app.DeletePostFromDB(id);
             }
 
             if (task.Equals("SyncAllAgain"))
@@ -141,6 +144,54 @@ namespace HindiJokes_BackgroundTasks
             ToastNotification toast = new ToastNotification(toastXml);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
 
+        }
+
+        private void _deleteOldData()
+        {
+            HanuDowsApplication app = HanuDowsApplication.getInstance();
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            var keep_old_jokes = localSettings.Values["Keep_Old_Jokes"];
+            var keep_old_memes = localSettings.Values["Keep_Old_Memes"];
+
+            DateTime now = DateTime.Now;
+            DateTime pub_date;
+            TimeSpan interval;
+
+            app.GetAllPosts();
+            List<Post> post_list = PostManager.getInstance().PostList;
+
+            foreach (Post post in post_list)
+            {
+                if (post.HasCategory("Meme"))
+                {
+                    if (keep_old_memes == null || keep_old_memes.Equals(""))
+                    {
+                        // Delete Old Memes
+                        pub_date = DateTime.Parse(post.PubDate);
+                        interval = now.Subtract(pub_date);
+                        if (interval.Days > 2)
+                        {
+                            app.DeletePostFromDB(post.PostID);
+                        }
+                    }
+
+                }
+                else
+                {
+                    if (keep_old_jokes == null || keep_old_jokes.Equals(""))
+                    {
+                        // Delete Old Jokes
+                        pub_date = DateTime.Parse(post.PubDate);
+                        interval = now.Subtract(pub_date);
+                        if (interval.Days > 100)
+                        {
+                            app.DeletePostFromDB(post.PostID);
+                        }
+                    }
+                }
+            }
+            
         }
     }
 }
